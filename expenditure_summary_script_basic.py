@@ -3,6 +3,9 @@ import csv
 import numpy as np
 from matplotlib import pyplot as plt
 
+#User greeting
+print('Below is the list of sellers you interacted with this month and the corresponding amount you spent/gained')
+
 #Import the csv file and parse
 column_1 = []
 column_2 = []
@@ -123,7 +126,7 @@ for i in range(len(column_1)):
             print(string_list_1)
             print(string_list_2)
             amount    = int(input('Enter amount as an integer or a float '))
-            seller    = input('Enter seller')
+            seller    = input('Enter seller ')
             date      = input('Enter a date in the following format: day.month.year (Always use 2 - digit number for the day and month, year is 4 dig. number, 3 is entered as 03) ')
             tran_type = input('Enter transaction type, will probably be a bank transfer ')
                 
@@ -144,3 +147,15 @@ for seller_u in sellers_unique:
 
 #Final dict creation
 final_dict = {key : value for key, value in zip(sellers_f, amounts_f)}
+
+#Inspectig individual seller
+
+user_input = input('Do you wish to inspect any individual seller? yes/no ')
+
+while user_input == 'yes':
+    seller_inspect = input('Name the seller to be inspected ')
+    for i in range(len(sellers)):
+        if sellers[i] == seller_inspect:
+            print('At {date} the sum of {amount} was spent/gained via {seller}'.format(date = dates[i], amount = amounts[i], seller = sellers[i]))
+
+    user_input = input('Do you with to inspect any other individual seller? yes/no ')
