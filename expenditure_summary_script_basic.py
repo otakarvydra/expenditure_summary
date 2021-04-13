@@ -148,6 +148,19 @@ for seller_u in sellers_unique:
 #Final dict creation
 final_dict = {key : value for key, value in zip(sellers_f, amounts_f)}
 
+#Printing total spending and income
+income_tot      = 0
+expenditure_tot = 0
+for i in amounts_f:
+    if i > 0:
+        income_tot += i
+    else:
+        expenditure_tot += i
+
+print('Total expenditure: {amount}'.format(amount = expenditure_tot))
+print('Total income: {amount}'.format(amount = income_tot))
+print('Balance: {balance}'.format(balance = (income_tot + expenditure_tot)))
+
 #Inspectig individual seller
 
 user_input = input('Do you wish to inspect any individual seller? yes/no ')

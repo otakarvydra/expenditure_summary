@@ -145,6 +145,30 @@ for seller_u in sellers_unique:
 #Final dict creation
 final_dict = {key : value for key, value in zip(sellers_f, amounts_f)}
 
+income_tot      = 0
+expenditure_tot = 0
+for i in amounts_f:
+    if i > 0:
+        income_tot += i
+    else:
+        expenditure_tot += i
+
+print('Total expenditure: {amount}'.format(amount = expenditure_tot))
+print('Total income: {amount}'.format(amount = income_tot))
+print('Balance: {balance}'.format(balance = (income_tot + expenditure_tot)))
+
+#Inspecting individual seller
+
+user_input = input('Do you wish to inspect any individual seller? yes/no ')
+
+while user_input == 'yes':
+    seller_inspect = input('Name the seller to be inspected ')
+    for i in range(len(sellers)):
+        if sellers[i] == seller_inspect:
+            print('At {date} the sum of {amount} was spent/gained via {seller}'.format(date = dates[i], amount = amounts[i], seller = sellers[i]))
+
+    user_input = input('Do you with to inspect any other individual seller? yes/no ')
+
 #Opening file with existing categories and saving these into sellers_c and categories_c
 sellers_c    = []
 categories_c = []
