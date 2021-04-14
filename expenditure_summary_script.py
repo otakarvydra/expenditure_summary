@@ -83,7 +83,7 @@ for i in range(len(column_1)):
             
             try:
                 if string_list_1[9] == 'Kate?ina Coufalová':
-                    seller    = 'Kateřina Coufalová'
+                    seller    = 'katerina'
                     date      = string_list_1[3]
                     tran_type = 'bank transfer'
 
@@ -214,11 +214,3 @@ with open('categories.csv', newline = '') as file_1:
         sellers_final.append(line['seller'])
         categories_final.append(line['category'])
 
-for i in range(len(sellers_f)):
-    index_1        = sellers_final.index(sellers_f[i])
-    category_final = categories_final[index_1]
-    amount         = amounts[i]
-
-    #category_final += amount
-
-# Data Output
