@@ -3,6 +3,11 @@ import csv
 import numpy as np
 from matplotlib import pyplot as plt
 
+#User greeting
+print('Expenditure summary running')
+
+#Predefining categories
+
 #Import the csv file and parse
 column_1 = []
 column_2 = []
@@ -128,6 +133,7 @@ for i in range(len(column_1)):
             tran_type = input('Enter transaction type, will probably be a bank transfer ')
                 
 #Data output
+print('This is the list of transactions in the desired period')
 sellers_unique = np.unique(sellers)
 
 sellers_f = []
@@ -202,15 +208,41 @@ with open('categories.csv', 'a') as file_1:
     for line in log:
         file_1_instance.writerow(line)
 
-#Categorising expenditures
-sellers_final    = []
-categories_final = []
+#Import the updated sellers with their categories into sellers_all and categories_all
+sellers_all    = []
+categories_all = []
 
-#Import the updated sellers with their categories into sellers_final and categories_final
 with open('categories.csv', newline = '') as file_1:
     file_1_parsed = csv.DictReader(file_1)
 
     for line in file_1_parsed:
-        sellers_final.append(line['seller'])
-        categories_final.append(line['category'])
+        sellers_all.append(line['seller'])
+        categories_all.append(line['category'])
 
+#Categorising Expenditures
+
+lst = []
+for i in range(len(sellers_f)):
+    for j in range(len(sellers_all)):
+        if sellers_f[i] == sellers_all[j]:
+            lst.append(categories_all[j])
+
+
+lst   = np.unique(lst)
+zeros = [0 for i in lst]
+dict_1 = {key: value for key, value in zip(lst, zeros)}              
+
+for i in range(len(sellers_f)):
+    for j in range(len(sellers_all)):
+        if sellers_f[i] == sellers_all[j]:
+            cat = categories_all[j]
+            dict_1[cat] += amounts_f[i]
+
+print('Expenditure sorted via categories:')
+
+for key, value in dict_1.items():
+    print(str(key) + ' ' + str(value))
+
+ans = input('Press enter to exit ')
+
+#Creating Graphs
