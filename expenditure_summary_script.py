@@ -4,9 +4,8 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 #User greeting
-print('Expenditure summary running')
-
-#Predefining categories
+print('''Expenditure summary running
+                                ''')
 
 #Import the csv file and parse
 column_1 = []
@@ -133,7 +132,8 @@ for i in range(len(column_1)):
             tran_type = input('Enter transaction type, will probably be a bank transfer ')
                 
 #Data output
-print('This is the list of transactions in the desired period')
+print('''This is the list of transactions in the desired period:
+                                                            ''')
 sellers_unique = np.unique(sellers)
 
 sellers_f = []
@@ -144,28 +144,16 @@ for seller_u in sellers_unique:
     for i in range(len(sellers)):
         if sellers[i] == seller_u:
             sum_1 += amounts[i]
-    print('{sum_1} via {seller_u}'.format(sum_1 = sum_1, seller_u = seller_u))
+    print('     {sum_1} via {seller_u}'.format(sum_1 = sum_1, seller_u = seller_u))
     sellers_f.append(seller_u)
     amounts_f.append(sum_1)
 
 #Final dict creation
 final_dict = {key : value for key, value in zip(sellers_f, amounts_f)}
 
-income_tot      = 0
-expenditure_tot = 0
-for i in amounts_f:
-    if i > 0:
-        income_tot += i
-    else:
-        expenditure_tot += i
-
-print('Total expenditure: {amount}'.format(amount = expenditure_tot))
-print('Total income: {amount}'.format(amount = income_tot))
-print('Balance: {balance}'.format(balance = (income_tot + expenditure_tot)))
-
 #Inspecting individual seller
-
-user_input = input('Do you wish to inspect any individual seller? yes/no ')
+user_input = input('''
+Do you wish to inspect any individual seller? yes/no ''')
 
 while user_input == 'yes':
     seller_inspect = input('Name the seller to be inspected ')
@@ -179,7 +167,7 @@ while user_input == 'yes':
 sellers_c    = []
 categories_c = []
 
-with open('categories.csv', newline='') as categories_file:
+with open('categories.csv', newline = '') as categories_file:
     categories_file_parsed = csv.DictReader(categories_file)
 
     for line in categories_file_parsed:
@@ -220,7 +208,6 @@ with open('categories.csv', newline = '') as file_1:
         categories_all.append(line['category'])
 
 #Categorising Expenditures
-
 lst = []
 for i in range(len(sellers_f)):
     for j in range(len(sellers_all)):
@@ -238,11 +225,66 @@ for i in range(len(sellers_f)):
             cat = categories_all[j]
             dict_1[cat] += amounts_f[i]
 
-print('Expenditure sorted via categories:')
+#Manually creating a new category (will be mainly used for gifts or cash income)
+user_input = input('''
+Do you wish to create a new category? yes/no ''')
+
+while user_input == 'yes':
+    cat_input         = input('Name the category you wish to create ')
+    amount_input      = float(input('State the desired amount this category will contain '))
+    dict_1[cat_input] = amount_input
+    user_input        = input('Do you wish to create a new category? yes/no ')
+
+print('''
+Expenditure sorted via categories:
+                              ''')
+for key, value in dict_1.items():
+    print('     ' + str(key) + ' ' + str(value))
+
+#Showing total expenditure and savings
+
+income_tot      = 0
+expenditure_tot = 0
+for i in amounts_f:
+    if i > 0:
+        income_tot += i
+    else:
+        expenditure_tot += i
+
+print('''
+Totals:
+    ''')
+
+print('     Total expenditure: {amount}'.format(amount = expenditure_tot))
+print('     Total income: {amount}'.format(amount = income_tot))
+print('     Balance: {balance}'.format(balance = (income_tot + expenditure_tot)))
+
+#Splitting Categories
+
+user_input = input('''
+Do you wish to split any category into multiple categories? yes/no ''')
+
+while user_input == 'yes':
+    cat_input           = input('''Name the category you wish to split ''')
+    where_input         = input('''Name the category where the money will be transferred ''')
+    amount_input        = float(input('State the amount to be transferred '))
+    dict_1[cat_input]   = dict_1[cat_input] - amount_input
+    dict_1[where_input] = dict_1[where_input] + amount_input
+
+    user_input = input('Do you wish to split any further category into multiple categories? yes/no ')
+
+# Printing the updated expenditure
+
+print('''
+Expenditure sorted via categories
+                             ''') 
 
 for key, value in dict_1.items():
-    print(str(key) + ' ' + str(value))
-
-ans = input('Press enter to exit ')
+    print('     ' + str(key) + ' ' + str(value))
 
 #Creating Graphs
+
+#Simple prompt included to keep the terminal open and to make the program look professional.
+
+ans = input('''
+Press enter to exit ''')
