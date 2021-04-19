@@ -58,9 +58,14 @@ for i in range(len(column_1)):
             continue
 
         except:
+            if 'RESERVED' in string_1.split(';') or 'RESERVED' in string_2.split(';'):
+                continue
             print('Unknown transaction, see details below:')
             print(string_list_1)
             print(string_list_2)
+            break_value = input('Do you wish to break the loop and proceed with the program? yes/no')
+            if break_value == 'yes':
+                break
             amount    = input('Enter amount as an integer or a float ')
             seller    = input('Enter seller as a string ')
             date      = input('Enter a date as a string in the following format: day.month.year (Always use 2 - digit number, 3 is entered as 03) ')
@@ -139,6 +144,8 @@ for i in range(len(column_1)):
                     continue
        
         except:
+            if 'RESERVED' in string_1.split(';') or 'RESERVED' in string_2.split(';'):
+                continue
             print('Unknown transaction, see details below:')
             print(string_list_1)
             print(string_list_2)
