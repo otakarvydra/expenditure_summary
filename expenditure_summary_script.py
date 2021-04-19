@@ -200,7 +200,7 @@ sellers_n    = []
 categories_n = []
 
 for i in sellers_f:
-    if not(sellers_c.count(i)) == 1:
+    if not i in sellers_c:
         category = input('Seller {seller} not categorized, please enter a category  '.format(seller = i))
         sellers_n.append(i)
         categories_n.append(category)
@@ -303,24 +303,32 @@ for key, value in dict_1.items():
     print('     ' + str(key) + ' ' + str(value))
 
 #Creating Graphs
+expenditures_values     = [] 
+expenditures_categories = []
+incomes_values          = []
+incomes_categories      = []
 
-    #Creating a bar graph
-categories = list(dict_1.keys())
-values     = list(dict_1.values())
+for key, value in dict_1.items():
+    if value < 0:
+        expenditures_values.append(value)
+        expenditures_categories.append(key)
+    else:
+        incomes_values.append(value)
+        incomes_categories.append(key)
+
+    #Creating pie graphs
+plt.figure('Pie Graphs')
+
 plt.subplot(2,1,1)
-ax = plt.subplot()
-plt.bar(range(len(categories)), [abs(i) for i in values]) 
-ax.set_xticks(range(len(categories)))
-ax.set_xticklabels(categories)
-plt.title('Expenditure as a function of category (bar)')
-plt.xlabel('Categories')
-plt.ylabel('Amount (CZK)')
-   
-    #Creating a pie graph
-plt.subplot(2,1,2)
-plt.pie([abs(i) for i in values], labels = categories)
+plt.pie([abs(i) for i in expenditures_values], labels = expenditures_categories)
 plt.axis('equal')
-plt.title('Expenditure as a function of category (pie)')
+plt.title('Expenditures')
+
+plt.subplot(2,1,2)
+plt.pie([abs(i) for i in incomes_values], labels = incomes_categories)
+plt.axis('equal')
+plt.title('Incomes')
+
 plt.show()
 
 #Simple prompt included to keep the terminal open and to make the program look professional.
