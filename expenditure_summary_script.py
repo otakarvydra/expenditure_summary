@@ -7,6 +7,9 @@ from matplotlib import pyplot as plt
 print('''Expenditure summary running
                                 ''')
 
+#Selecting a month
+month_input = input('Select month as a number with two places (february = 02) ')
+
 #Import the csv file and parse
 column_1 = []
 column_2 = []
@@ -40,15 +43,18 @@ for i in range(len(column_1)):
         try:
             seller    = string_list_1[9]
             date      = string_list_1[13].split('(')[1].strip(')')
+            month     = date.split('.')[1]
             tran_type = string_list_1[13].split('(')[0]     
 
             if tran_type == 'Výb?r z bankomatu':
                 seller = 'ATM withdrawal'
 
-            sellers.append(seller)
-            amounts.append(amount)
-            dates.append(date)
-            tran_types.append(tran_type)
+            if month == month_input:
+                sellers.append(seller)
+                amounts.append(amount)
+                dates.append(date)
+                tran_types.append(tran_type)
+            
             continue
 
         except:
@@ -66,35 +72,41 @@ for i in range(len(column_1)):
             if string_list_2[0] == ' SPOL. S R.O.' and string_list_1[9] == 'AREKO':
                 seller    = 'AREKO'
                 date      = string_list_1[3]
+                month     = date.split('-')[1]
                 tran_type = 'bank transfer'
 
-                sellers.append(seller)
-                amounts.append(amount)
-                dates.append(date)
-                tran_types.append(tran_type)
+                if month == month_input:
+                    sellers.append(seller)
+                    amounts.append(amount)
+                    dates.append(date)
+                    tran_types.append(tran_type)
                 continue
 
             if string_list_2[0] == ' a.s.' and string_list_2[3] == 'Správa domu':
                 seller    = 'Správa domu'
                 date      = string_list_1[3]
+                month     = date.split('-')[1]
                 tran_type = 'bank transfer'
 
-                sellers.append(seller)
-                amounts.append(amount)
-                dates.append(date)
-                tran_types.append(tran_type)
+                if month == month_input:
+                    sellers.append(seller)
+                    amounts.append(amount)
+                    dates.append(date)
+                    tran_types.append(tran_type)
                 continue
             
             try:
                 if string_list_1[9] == 'Kate?ina Coufalová':
                     seller    = 'katerina'
                     date      = string_list_1[3]
+                    month     = date.split('-')[1]
                     tran_type = 'bank transfer'
 
-                    sellers.append(seller)
-                    amounts.append(amount)
-                    dates.append(date)
-                    tran_types.append(tran_types)
+                    if month == month_input:
+                        sellers.append(seller)
+                        amounts.append(amount)
+                        dates.append(date)
+                        tran_types.append(tran_types)
                     continue
 
             except:
@@ -102,37 +114,45 @@ for i in range(len(column_1)):
                     amount    = amount - (int(string_list_2[0]) / 100)
                     seller    =  string_list_2[8]
                     date      = string_list_2[12].split('(')[1].strip(')')
+                    month     = date.split('.')[1]
                     tran_type = string_list_2[12].split('(')[0]
                 
-                    sellers.append(seller)
-                    amounts.append(amount)
-                    dates.append(date)
-                    tran_types.append(tran_type)
+                    if month == month_input:
+                        sellers.append(seller)
+                        amounts.append(amount)
+                        dates.append(date)
+                        tran_types.append(tran_type)
                     continue
 
                 if amount > 0:
                     amount    = amount + (int(string_list_2[0] / 100))
                     seller    = string_list_2[8]
                     date      = string_list_2[12].split('(')[1].strip(')')
+                    month     = date.split('.')[1]
                     tran_type = string_list_2[12].split('(')[0]
 
-                    sellers.append(seller)
-                    amounts.append(amount)
-                    dates.append(date)
-                    tran_types.append(tran_type)
+                    if month == month_input:
+                        sellers.append(seller)
+                        amounts.append(amount)
+                        dates.append(date)
+                        tran_types.append(tran_type)
                     continue
        
         except:
             print('Unknown transaction, see details below:')
             print(string_list_1)
             print(string_list_2)
+            break_value = input('Do you wish to break the loop and proceed with the program? yes/no')
+            if break_value == 'yes':
+                break
             amount    = int(input('Enter amount as an integer or a float '))
             seller    = input('Enter seller')
             date      = input('Enter a date in the following format: day.month.year (Always use 2 - digit number for the day and month, year is 4 dig. number, 3 is entered as 03) ')
             tran_type = input('Enter transaction type, will probably be a bank transfer ')
                 
 #Data output
-print('''This is the list of transactions in the desired period:
+print('''
+This is the list of transactions in the desired period:
                                                             ''')
 sellers_unique = np.unique(sellers)
 
@@ -283,6 +303,25 @@ for key, value in dict_1.items():
     print('     ' + str(key) + ' ' + str(value))
 
 #Creating Graphs
+
+    #Creating a bar graph
+categories = list(dict_1.keys())
+values     = list(dict_1.values())
+plt.subplot(2,1,1)
+ax = plt.subplot()
+plt.bar(range(len(categories)), [abs(i) for i in values]) 
+ax.set_xticks(range(len(categories)))
+ax.set_xticklabels(categories)
+plt.title('Expenditure as a function of category (bar)')
+plt.xlabel('Categories')
+plt.ylabel('Amount (CZK)')
+   
+    #Creating a pie graph
+plt.subplot(2,1,2)
+plt.pie([abs(i) for i in values], labels = categories)
+plt.axis('equal')
+plt.title('Expenditure as a function of category (pie)')
+plt.show()
 
 #Simple prompt included to keep the terminal open and to make the program look professional.
 
