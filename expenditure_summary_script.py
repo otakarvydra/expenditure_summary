@@ -54,7 +54,6 @@ for i in range(len(column_1)):
                 amounts.append(amount)
                 dates.append(date)
                 tran_types.append(tran_type)
-            
             continue
 
         except:
@@ -66,10 +65,12 @@ for i in range(len(column_1)):
                     month     = date.split('-')[1]
                     tran_type = 'unknown'
 
-                    sellers.append(seller)
-                    amounts.append(amount)
-                    dates.append(date)
-                    tran_types.append(tran_type)
+                    if month == month_input:
+                        sellers.append(seller)
+                        amounts.append(amount)
+                        dates.append(date)
+                        tran_types.append(tran_type)
+                    continue
                 
                 else:
                     seller    = 'reserved'
@@ -78,22 +79,31 @@ for i in range(len(column_1)):
                     month     = date.split('-')[1]
                     tran_type = 'unknown'
 
-                    sellers.append(seller)
-                    amounts.append(amount)
-                    dates.append(date)
-                    tran_types.append(tran_type)
+                    if month == month_input:
+                        sellers.append(seller)
+                        amounts.append(amount)
+                        dates.append(date)
+                        tran_types.append(tran_type)
+                    continue
 
                 continue
             print('Unknown transaction, see details below:')
             print(string_list_1)
             print(string_list_2)
-            break_value = input('Do you wish to break the loop and proceed with the program? yes/no')
+            break_value = input('Do you wish to break the loop and proceed with the program? yes/no ')
             if break_value == 'yes':
                 break
             amount    = input('Enter amount as an integer or a float ')
             seller    = input('Enter seller as a string ')
             date      = input('Enter a date as a string in the following format: day.month.year (Always use 2 - digit number, 3 is entered as 03) ')
             tran_type = input('Enter transaction type as a string, will probably be a bank transfer ')
+
+            if month == month_input:
+                sellers.append(seller)
+                amounts.append(amount)
+                dates.append(date)
+                tran_types.append(tran_type)
+            continue
 
     else:
         try:
@@ -131,12 +141,18 @@ for i in range(len(column_1)):
                     month     = date.split('-')[1]
                     tran_type = 'bank transfer'
 
-                    if month == month_input:
-                        sellers.append(seller)
-                        amounts.append(amount)
-                        dates.append(date)
-                        tran_types.append(tran_types)
-                    continue
+                else:
+                    seller    = string_list_1[9]
+                    date      = string_list_1[3]
+                    month     = date.split('-')[1]
+                    tran_type = 'bank transfer' 
+
+                if month == month_input:
+                    sellers.append(seller)
+                    amounts.append(amount)
+                    dates.append(date)
+                    tran_types.append(tran_types)
+                continue
 
             except:
                 if amount < 0:           
@@ -176,10 +192,12 @@ for i in range(len(column_1)):
                     month     = date.split('-')[1]
                     tran_type = 'unknown'
 
-                    sellers.append(seller)
-                    amounts.append(amount)
-                    dates.append(date)
-                    tran_types.append(tran_type)
+                    if month == month_input:
+                        sellers.append(seller)
+                        amounts.append(amount)
+                        dates.append(date)
+                        tran_types.append(tran_type)
+                    continue
                 
                 else:
                     seller    = 'reserved'
@@ -188,22 +206,29 @@ for i in range(len(column_1)):
                     month     = date.split('-')[1]
                     tran_type = 'unknown'
 
-                    sellers.append(seller)
-                    amounts.append(amount)
-                    dates.append(date)
-                    tran_types.append(tran_type)
-
-                continue
+                    if month == month_input:
+                        sellers.append(seller)
+                        amounts.append(amount)
+                        dates.append(date)
+                        tran_types.append(tran_type)
+                    continue
+            
             print('Unknown transaction, see details below:')
             print(string_list_1)
             print(string_list_2)
-            break_value = input('Do you wish to break the loop and proceed with the program? yes/no')
+            break_value = input('Do you wish to break the loop and proceed with the program? yes/no ')
             if break_value == 'yes':
                 break
             amount    = int(input('Enter amount as an integer or a float '))
-            seller    = input('Enter seller')
+            seller    = input('Enter seller ')
             date      = input('Enter a date in the following format: day.month.year (Always use 2 - digit number for the day and month, year is 4 dig. number, 3 is entered as 03) ')
             tran_type = input('Enter transaction type, will probably be a bank transfer ')
+
+            if month == month_input:
+                sellers.append(seller)
+                amounts.append(amount)
+                dates.append(date)
+                tran_types.append(tran_type)
                 
 #Data output
 print('''
