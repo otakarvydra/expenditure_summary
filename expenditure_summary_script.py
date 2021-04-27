@@ -58,7 +58,31 @@ for i in range(len(column_1)):
             continue
 
         except:
-            if 'RESERVED' in string_1.split(';') or 'RESERVED' in string_2.split(';'):
+            if 'RESERVED' in string_list_1 or 'RESERVED' in string_list_2:
+                if 'RESERVED' in string_list_1:
+                    seller    = 'reserved'
+                    amount    = int(string_list_1[0])
+                    date      = string_list_1[3]
+                    month     = date.split('-')[1]
+                    tran_type = 'unknown'
+
+                    sellers.append(seller)
+                    amounts.append(amount)
+                    dates.append(date)
+                    tran_types.append(tran_type)
+                
+                else:
+                    seller    = 'reserved'
+                    amount    = int(string_list_1[0]) - int(string_list_2[0]) / 100
+                    date      = string_list_2[2]
+                    month     = date.split('-')[1]
+                    tran_type = 'unknown'
+
+                    sellers.append(seller)
+                    amounts.append(amount)
+                    dates.append(date)
+                    tran_types.append(tran_type)
+
                 continue
             print('Unknown transaction, see details below:')
             print(string_list_1)
@@ -144,7 +168,31 @@ for i in range(len(column_1)):
                     continue
        
         except:
-            if 'RESERVED' in string_1.split(';') or 'RESERVED' in string_2.split(';'):
+            if 'RESERVED' in string_list_1 or 'RESERVED' in string_list_2:
+                if 'RESERVED' in string_list_1:
+                    seller    = 'reserved'
+                    amount    = int(string_list_1[0])
+                    date      = string_list_1[3]
+                    month     = date.split('-')[1]
+                    tran_type = 'unknown'
+
+                    sellers.append(seller)
+                    amounts.append(amount)
+                    dates.append(date)
+                    tran_types.append(tran_type)
+                
+                else:
+                    seller    = 'reserved'
+                    amount    = int(string_list_1[0]) - int(string_list_2[0]) / 100
+                    date      = string_list_2[2]
+                    month     = date.split('-')[1]
+                    tran_type = 'unknown'
+
+                    sellers.append(seller)
+                    amounts.append(amount)
+                    dates.append(date)
+                    tran_types.append(tran_type)
+
                 continue
             print('Unknown transaction, see details below:')
             print(string_list_1)
