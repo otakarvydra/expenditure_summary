@@ -108,7 +108,7 @@ for i in range(len(column_1)):
     else:
         try:
             amount = int(string_list_1[1])
-            if string_list_2[0] == ' SPOL. S R.O.' and string_list_1[9] == 'AREKO':
+            if string_list_2[0] == ' a.s.' and string_list_2[3] == 'AREKO':
                 seller    = 'AREKO'
                 date      = string_list_1[3]
                 month     = date.split('-')[1]
